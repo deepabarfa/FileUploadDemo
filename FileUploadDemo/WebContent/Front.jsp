@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body bgcolor="#FEF9E7">
+<body background="image/light_background_texture_69531_3840x2160.jpg">
 
 <p1 align="left">
 <form action="AdminloginCheckout" method="Post">
@@ -18,15 +18,28 @@
 <input type="submit" value=" Logout" /></form></p1><%-- when we click customer profile we go with form action on logout.jsp --%>
 <%!int a=0;%>
  <%!String ipaddress="";%>
-<%@page import="connect.Addtocartconnect"%>
+<%@page import="connect.Addtocartconnect,java.net.InetAddress"%>
    <%
-   ipaddress =request.getRemoteAddr();
+   HttpSession ss=request.getSession();//if user already login 
+	 String x=(String)ss.getAttribute("user");
+	if(x==null)//check if its not then send url CheckoutCLogin.jsp
+	{
+   InetAddress addr=InetAddress.getLocalHost();
+	String ipaddress=addr.getHostAddress();
+   //ipaddress =request.getRemoteAddr();
    Addtocartconnect pd=new Addtocartconnect();//it is an class and we create an object
-   int a=pd.countProduct(ipaddress);//by object we call countProduct(ipaddress) function and it all data give the value a
+   a=pd.countProduct(ipaddress);//by object we call countProduct(ipaddress) function and it all data give the value a
+	}
+	else
+	{
+		String email=x;
+		Addtocartconnect pd1=new Addtocartconnect();//it is an class and we create an object
+	    a=pd1.countProductemail(email);//by object we call countProduct(ipaddress) function and it all data give the value a
+	}
 %>
 
 <center>
-<img src="image/zappy-logo.png" heigth="125" width="125" /></img> <%-- it is an image of zappy --%>
+<img src="image/zappy-logo.png" heigth="150" width="150" /></img> <%-- it is an image of zappy --%>
 </center><center>
 <h3><font color="red"><%String m=(String)request.getAttribute("msg"); 
 if(m!=null)
@@ -41,17 +54,17 @@ if(m!=null)
 ArrayList<Zeppy> ar=(ArrayList<Zeppy>)request.getAttribute("LIST"); // get the list attribute which is set shoppingList servlet and get the all data in the arraylist form.
 if(ar!=null)
 {	int b=0;
-	%><table  style="background-color:#CCFFCC;" border="2"><%
+	%><table  background="image/light_background_texture_69531_3840x2160.jpg"><%
 			for(Zeppy z:ar)
 	{
-			if(b%4==0) // we want to get the data in table sequence of four
+			if(b%5==0) // we want to get the data in table sequence of four
 			{
 			out.println("<tr>");
 		    %>
 			<td>
 			<form action="Addtocard" method="post">
    <center><h4>Product Name =<%=z.getProductID()%></h4></center> <%--get the productid with zeppy object z--%>
-    <center><a href="ViewproductDetailsController?productID=<%=z.getProductID()%>"><img src="images/<%=z.getImages()%>" heigth="125" width="125" /></a></br></center> <%-- we create a link when we click image it will go ViewproductDetailsController servlet and that is show the all product details--%>
+    <center><a href="ViewproductDetailsController?productID=<%=z.getProductID()%>"><img src="images/<%=z.getImages()%>" heigth="150" width="150" /></a></br></center> <%-- we create a link when we click image it will go ViewproductDetailsController servlet and that is show the all product details--%>
     <center><b>Product Name</b> =<%=z.getProductname()%><br/></center><%--get the productname with getter function--%>
     <center><b>Price</b> =<%=z.getPrice()%>Rs<br/></center><%-- get the price --%>
    <center><b>Weight</b> = <%=z.getWeight()%><br/></center><%--get the weight --%>
@@ -69,7 +82,7 @@ if(ar!=null)
 				<td>
 <form action="Addtocard" method="post">                                            </br>
    <center><h4>Product Name =<%=z.getProductID()%></h4></center>
-    <center><a href="ViewproductDetailsController?productID=<%=z.getProductID()%>"><img src="images/<%=z.getImages()%>" heigth="125" width="125" /></a></br></center>
+    <center><a href="ViewproductDetailsController?productID=<%=z.getProductID()%>"><img src="images/<%=z.getImages()%>" heigth="150" width="150" /></a></br></center>
     <center><b>Product Name</b> =<%=z.getProductname()%><br/></center>
     <center><b>Price</b> =<%=z.getPrice()%>Rs<br/></center>
    <center><b>Weight</b> = <%=z.getWeight()%><br/></center>
@@ -85,7 +98,7 @@ if(ar!=null)
 				</td>
 				
 				<%
-			if(b%4==3)
+			if(b%5==4)
 				out.println("</tr>");
 			    	
 		    }		

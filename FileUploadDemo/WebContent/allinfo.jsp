@@ -44,9 +44,11 @@ mobile:<%=z.getMobile()%><br/>
 }
 %>
 <br/>
+<a href ="ShoppingList">More shopping </a>
+<br/>
 <h1>product Details</h1>
 <table style="background-color:#E5E7E9;" border="1">
-<tr style="background-color: #FBFCFC;"><th>productID</th><th>images</th><th>productname</th><th>price</th><th>weight</th><th>details</th><th>Quantity</th><th>Ipaddress</th><th>Order</th></tr>
+<tr style="background-color: #FBFCFC;"><th>productID</th><th>images</th><th>productname</th><th>price</th><th>weight</th><th>details</th><th>Quantity</th><th>identity</th><th>Order</th></tr>
 <%-- heading --%>
 <%@page import="java.util.ArrayList,zappyinfo.Zeppy" %>
 <%
@@ -78,11 +80,24 @@ for(Zeppy z:ar1) //also get LIST1 from Allinfo servlet
 
 <%!int a=0;%>
  <%!String ipaddress="";%>
-<%@page import="connect.Addtocartconnect"%>
+<%@page import="connect.Addtocartconnect,java.net.InetAddress"%>
    <%
-   ipaddress =request.getRemoteAddr();
-   Addtocartconnect pd=new Addtocartconnect();
-   int a=pd.countProduct(ipaddress);//this method is for count add to cart product
+   HttpSession ss=request.getSession();//if user already login 
+	 String x=(String)ss.getAttribute("user");
+	if(x==null)//check if its not then send url CheckoutCLogin.jsp
+	{
+InetAddress addr=InetAddress.getLocalHost();
+	String ipaddress=addr.getHostAddress();
+//ipaddress =request.getRemoteAddr();
+Addtocartconnect pd=new Addtocartconnect();//it is an class and we create an object
+a=pd.countProduct(ipaddress);//by object we call countProduct(ipaddress) function and it all data give the value a
+	}
+	else
+	{
+		String email=x;
+		Addtocartconnect pd1=new Addtocartconnect();//it is an class and we create an object
+	    a=pd1.countProductemail(email);//by object we call countProduct(ipaddress) function and it all data give the value a
+	}
    %>
    <br/>
 Total product:  <%=a%>

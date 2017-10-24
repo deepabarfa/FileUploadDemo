@@ -48,9 +48,9 @@ public class Allinfo extends HttpServlet {
 		
 		ArrayList<Zeppy> list=cv.registrationview(name);//its reprsent the all user registration details 
 		
-		Addtocartconnect cv1=new Addtocartconnect();
+		Addtocartconnect cv1=new Addtocartconnect();//object creation
 		
-		ArrayList<Zeppy> list1=cv1.viewaddcart();//it shows all addtocart  
+		ArrayList<Zeppy> list1=cv1.viewaddcartemail(name);//it shows all addtocart (database code here) 
 		
 			if(list1!=null)
 			{

@@ -25,9 +25,9 @@ if(s!=null)
 <tr><td>Name</td><td><input type="text" pattern="[a-zA-Z\s]+" name="name" required/></td></tr>
 <tr><td>lastname</td><td><input type="text" pattern="[a-zA-Z\s]+" name="lastname" required/></td></tr>
 <tr><td> city</td><td><input type="text" pattern="[a-zA-Z\s]+" name="city" required/></td></tr>
-<tr><td>State</td><td><input type ="text" name="state"required/> </td></tr>
+<tr><td>State</td><td><input type ="text" name="state" pattern="[a-zA-Z\s]+" required/> </td></tr>
 <tr><td>pin</td><td> <input type="text"  pattern="^[0-9]*$" name="pin" required /></td></tr>
-<tr><td>Address</td><td><input type="text" name="address"required/></td></tr>
+<tr><td>Address</td><td><input type="text"  name="address"required/></td></tr>
 <tr><td>Mobile</td><td><input type="text" pattern="^[0-9]*$" name="mobile" required/></td></tr>
 <tr><td>password</td><td><input type="password" name="password" required/></td></tr>
 <tr><td><input type="submit"/></td></tr>

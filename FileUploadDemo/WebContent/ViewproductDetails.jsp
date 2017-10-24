@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body bgcolor="silver">
+<body background="image/light_background_texture_69531_3840x2160.jpg">
 <p1 align="left">
 <form action="index.jsp" method="get">
 <input type="submit" value="Zappy Home" /></form></p1>

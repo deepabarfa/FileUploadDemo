@@ -19,11 +19,11 @@ public class OrderConnect
 	int y=0,x=0,z=0;
 	try {	
 	    
-	    PreparedStatement ps=con.prepareStatement("select a.productID,a.productname,a.details,a.price,a.images,a.quantity,a.tamount,r.name,r.mobile,r.address from addtocart a,registration r where ipaddress=? and email=? and productID=?");
+	    PreparedStatement ps=con.prepareStatement("select a.productID,a.productname,a.details,a.price,a.images,a.quantity,a.tamount,r.name,r.mobile,r.address from addtocart a,registration r where email=? and productID=?");
 		//create query (joint query) because we need to use two table
-	    ps.setString(1,ipaddress);// set value
-		ps.setInt(3,productID);
-		ps.setString(2,email);
+	   // ps.setString(1,ipaddress); // set value
+		ps.setInt(2,productID);
+		ps.setString(1,email);
 	    ResultSet rs= ps.executeQuery();// method that return a Resultset object which contains the result returned by the execution query
 	    
 	    ArrayList<Zeppy> list=new ArrayList<>();//create object of arraylist
@@ -62,7 +62,7 @@ public class OrderConnect
 //when data insert into order1 table when data delete from addtocart table
         PreparedStatement ps2=con.prepareStatement("delete from addtocart where productID=? and ipaddress=?");//placeholder
 	   	ps2.setInt(1,productID);//for delete query we set value
-        ps2.setString(2, ipaddress);   
+        ps2.setString(2, email);   
    	   con.setAutoCommit(false);//autoCommit code when query finish connection will close
 	   	 y=ps1.executeUpdate();//execute query
    	     z=ps2.executeUpdate();//execute query

@@ -1,6 +1,7 @@
 package test;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,18 +59,41 @@ public class addtocartCheckoutcontroller extends HttpServlet {
 			}
 		}
 		if(y.equals("Delete"))//if we click delete button
-		{		String ipadd=request.getRemoteAddr();
-			int p=Integer.parseInt(request.getParameter("productID"));//string to integer
-			 Addtocartconnect cv=new Addtocartconnect();
-			    int z=cv.removeProduct(p,ipadd);//database code
-			     if(z==1)//check condition
-			      {
-			    	 response.sendRedirect("index.jsp");//jump index.jsp page
-			    	 //RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-			 	  //request.setAttribute("LIST","Product removed from cart");
-			 	  //rd.forward(request, response);
-		}
+		{	
+			 HttpSession ss=request.getSession();//if user already login 
+			 String x=(String)ss.getAttribute("user");
+			if(x==null)//check if its not then send url CheckoutCLogin.jsp
+			{
+				InetAddress addr=InetAddress.getLocalHost();
+		    	String ipadd=addr.getHostAddress();
+				//String ipadd=request.getRemoteAddr();
+				int p=Integer.parseInt(request.getParameter("productID"));//string to integer
+				 Addtocartconnect cv=new Addtocartconnect();
+				    int z=cv.removeProduct(p,ipadd);//database code
+				     if(z==1)//check condition
+				      {
+				    	 System.out.println("hiiiiwrejw");
+				    	 response.sendRedirect("index.jsp");//jump index.jsp page
+				    	 //RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+				 	  //request.setAttribute("LIST","Product removed from cart");
+				 	  //rd.forward(request, response);	
+				      }
+			}
+			else
+			{
+				String email=x;
+				int pid=Integer.parseInt(request.getParameter("productID"));//string to integer
+				 Addtocartconnect cv1=new Addtocartconnect();
+				    int a=cv1.removeProductemail(pid,email);//database code
+				     if(a==1)//check condition
+				      {
+				    	 response.sendRedirect("index.jsp");//jump index.jsp page
+				    	 //RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+				 	  //request.setAttribute("LIST","Product removed from cart");
+				 	  //rd.forward(request, response);	
+				      }
+			
+		 }
 	}
-	}
+	}}
 
-}

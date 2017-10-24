@@ -1,6 +1,7 @@
 package test;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -63,7 +64,10 @@ public class OrderController extends HttpServlet {
 				String productID1=request.getParameter("productID");//get value from jsp page
 				int productID2=Integer.parseInt(productID1);//convert into integer
 				System.out.println(productID2);
-				String ipadd=request.getRemoteAddr();
+				
+				InetAddress addr=InetAddress.getLocalHost();
+		    	String ipadd=addr.getHostAddress();
+				//String ipadd=request.getRemoteAddr();
 				int p=oc.buyproduct(email,productID2,ipadd);//database code here
 				if(p!=0)
 		 	     {

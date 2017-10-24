@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import connect.Addtocartconnect;
 import connect.LoginConnect;
 
 /**
@@ -47,6 +48,8 @@ public class CustomerCheckoutController extends HttpServlet {
 		   {    
 			    HttpSession ss=request.getSession();//set session or user identity
 		        ss.setAttribute("user",u);
+		        Addtocartconnect ac=new Addtocartconnect();
+		        int x=ac.updatecart(u);
 			    response.sendRedirect("Allinfo");//and send response to allinfo servlet
 		   }
 		   else//if user entered wrong password then
